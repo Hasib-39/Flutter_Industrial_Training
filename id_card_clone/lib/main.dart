@@ -115,9 +115,12 @@ class _IDCardPageState extends State<IDCardPage> {
                 children: [
                   // Top green header
                   Container(
-                    color: _color,
                     width: 300,
                     height: 160,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+                      color: _color,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -291,7 +294,10 @@ class _IDCardPageState extends State<IDCardPage> {
               Container(
                 width: 300,
                 height: 28,
-                color: _color,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16), bottomRight: Radius.circular(16)),
+                  color: _color,
+                ),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8, right: 8),
                   child: Row(
