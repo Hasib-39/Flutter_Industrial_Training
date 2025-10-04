@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import '../core/provider.dart';
+
+
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeProvider);
+    final fontSize = ref.watch(fontSizeProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -53,6 +56,63 @@ class SettingsPage extends ConsumerWidget {
                 ref.read(themeProvider.notifier).setTheme(value);
               }
             },
+          ),
+          const Divider(),
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              'Font Size',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Preview:'),
+                    Text(
+                      'Sample Text',
+                      style: TextStyle(fontSize: fontSize),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    const Text('A', style: TextStyle(fontSize: 12)),
+                    Expanded(
+                      child: Slider(
+                        value: fontSize,
+                        min: 12.0,
+                        max: 24.0,
+                        divisions: 12,
+                        label: fontSize.toStringAsFixed(0),
+                        onChanged: (value) {
+                          ref.read(fontSizeProvider.notifier).setFontSize(value);
+                        },
+                      ),
+                    ),
+                    const Text('A', style: TextStyle(fontSize: 24)),
+                  ],
+                ),
+                Center(
+                  child: Text(
+                    '${fontSize.toStringAsFixed(0)} pt',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           const Divider(),
           ListTile(
